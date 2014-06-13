@@ -1,9 +1,12 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## File: cacheMatrix
 ##
-## Author: Mike Rodbell
+## File:    cacheMatrix
+##
+## Author:  Mike Rodbell
+##
+## Purpose: This file contains two primary functions that can be used to 
+##          create a matrix for which a result set may be cached. In this
+##          case, the result set is the inversion of the original matrix,
+##          using the R scope functions.
 ## 
 
 ## 
@@ -20,11 +23,11 @@ makeCacheMatrix <- function(x = matrix()) {
     m <<- NULL
   }
   get <- function() x
-  setmean <- function(mean) m <<- mean
-  getmean <- function() m
+  setinverse <- function(inverse) m <<- inverse
+  getinverse <- function() m
   list(set = set, get = get,
-       setmean = setmean,
-       getmean = getmean)
+       setinverse = setinverse,
+       getinverse = getinverse)
 }
 
 
@@ -38,4 +41,16 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  m <- x$getinverse()
+  if(!is.null(m)) {
+    message("getting cached data")
+    m <- solve(x)
+    return(m)
+  }
+  data <- x$getinverse()
+
+  ## Old function: m <- mean(data, ...)
+  ## calculate inverse of data
+  x$setinverse(m)
+  m
 }
