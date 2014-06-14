@@ -44,13 +44,16 @@ cacheSolve <- function(x, ...) {
   m <- x$getinverse()
   if(!is.null(m)) {
     message("getting cached data")
-    m <- solve(x)
+    m
     return(m)
-  }
-  data <- x$getinverse()
+  } 
+  message("computing result for the first time")
+  data <- x$get()
+  m <- solve(data)
 
   ## Old function: m <- mean(data, ...)
   ## calculate inverse of data
   x$setinverse(m)
   m
+  return(m)
 }
