@@ -16,7 +16,7 @@
 ##            and manipulate 
 
 makeCacheMatrix <- function(x = matrix()) {
-## stuff from makeVector
+
   m <- NULL
   set <- function(y) {
     x <<- y
@@ -40,7 +40,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ##
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  ## Return a matrix that is the inverse of 'x'
   m <- x$getinverse()
   if(!is.null(m)) {
     message("getting cached data")
@@ -49,10 +49,9 @@ cacheSolve <- function(x, ...) {
   } 
   message("computing result for the first time")
   data <- x$get()
-  m <- solve(data)
-
-  ## Old function: m <- mean(data, ...)
+   
   ## calculate inverse of data
+  m <- solve(data)
   x$setinverse(m)
   m
   return(m)
